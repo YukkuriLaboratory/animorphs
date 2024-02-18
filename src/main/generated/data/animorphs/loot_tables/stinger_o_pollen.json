@@ -6,7 +6,7 @@
       "conditions": [
         {
           "capped_chance": 0.035,
-          "comparison_multiplier": 1.0E-4,
+          "comparison_multipiler": 1.0E-4,
           "condition": "animorphs:stinger_o_pollen",
           "default_divider": 1.0E9,
           "divide_by_number_every_x_ticks": 72000,

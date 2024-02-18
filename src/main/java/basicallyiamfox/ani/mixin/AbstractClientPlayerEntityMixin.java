@@ -50,10 +50,10 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
 
         SkinTextures textures;
         if (DefaultSkinHelper.getSkinTextures(getUuid()).model().equals(SkinTextures.Model.SLIM)) {
-            textures = transformation.getSkinSlim();
+            textures = new SkinTextures(transformation.getSkinSlim(), null, null, null, SkinTextures.Model.SLIM, true);
         }
         else {
-            textures = transformation.getSkin();
+            textures = new SkinTextures(transformation.getSkin(), null, null, null, SkinTextures.Model.WIDE, true);
         }
 
         cir.setReturnValue(textures);

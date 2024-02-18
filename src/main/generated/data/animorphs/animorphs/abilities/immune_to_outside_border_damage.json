@@ -1,0 +1,14 @@
+{
+  "color": 13163775,
+  "id": "animorphs:immune_to_outside_border_damage",
+  "key": "animorphs.ability.animorphs.name.immune_to_outside_border_damage",
+  "rules": [
+    {
+      "decorator": {
+        "type": "minecraft:outside_border",
+        "id": "animorphs:immune_damage_type"
+      }
+    }
+  ],
+  "sign": "POSITIVE"
+}
