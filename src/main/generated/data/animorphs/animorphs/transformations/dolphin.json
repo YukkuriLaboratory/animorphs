@@ -1,0 +1,12 @@
+{
+  "abilities": [
+    "animorphs:dolphins_grace_status_effect",
+    "animorphs:moist_skin"
+  ],
+  "color": 14251597,
+  "description": "animorphs.transformation.animorphs.desc.dolphin.0",
+  "id": "animorphs:dolphin",
+  "item": "animorphs:dolphin_fin",
+  "skin": "animorphs:textures/transformations/dolphin.png",
+  "slim": "animorphs:textures/transformations/noteman_slim.png"
+}

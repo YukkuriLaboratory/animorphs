@@ -41,6 +41,7 @@ import net.minecraft.loot.LootTable
 import net.minecraft.loot.context.LootContextTypes
 import net.minecraft.loot.entry.ItemEntry
 import net.minecraft.loot.provider.number.ConstantLootNumberProvider
+import net.minecraft.predicate.entity.EntityEffectPredicate.EffectData
 import net.minecraft.recipe.book.RecipeCategory
 import net.minecraft.registry.Registries
 import net.minecraft.registry.RegistryKey
@@ -73,6 +74,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             itemModelGenerator!!.register(AnimorphsItems.STINGER_O_POLLEN, Models.GENERATED)
             itemModelGenerator.register(AnimorphsItems.MAGMA_JELLY, Models.GENERATED)
             itemModelGenerator.register(AnimorphsItems.UNFINISHED_SYMPHONY, Models.GENERATED)
+            itemModelGenerator.register(AnimorphsItems.DOLPHIN_FIN, Models.GENERATED)
         }
     }
     class LangGenerator(output: FabricDataOutput) : FabricLanguageProvider(output, "en_us") {
@@ -106,6 +108,14 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     .addSelf("Movements will sometimes play sounds.")
             )
 
+            translationBuilder.add(AnimorphsItems.DOLPHIN_FIN, "Dolphin fin")
+            translationBuilder.addTransDesc(
+                Transformations.DOLPHIN,
+                arrayListOf(
+                    "dolllllllllllllllll fin"
+                )
+            )
+
             translationBuilder.addAbilityName(Abilities.BEEFLY, "Beefly")
             translationBuilder.addAbilityDesc(Abilities.BEEFLY, "Allows to fly while holding a special key.")
 
@@ -123,6 +133,9 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
             translationBuilder.addAbilityName(Abilities.STING, "Sting")
             translationBuilder.addAbilityDesc(Abilities.STING, "Effect poison to target when attacks. But you will be died.")
+
+            translationBuilder.addAbilityName(Abilities.MOIST_SKIN, "Moist Skin")
+            translationBuilder.addAbilityDesc(Abilities.MOIST_SKIN, "Needs to keep wet skin")
 
             (DamageTypes::class.java.declaredFields).forEach { e ->
                 if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
@@ -229,6 +242,26 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     )
                 )
 
+                t.accept(Transformation()
+                    .setColor(Color(217, 118, 77).rgb)
+                    .setId(Transformations.DOLPHIN)
+                    .setSkin(Identifier("animorphs:textures/transformations/dolphin.png"))
+                    //TODO: Create Slin skin
+                    .setSlim(Identifier("animorphs:textures/transformations/noteman_slim.png"))
+                    .setItem(AnimorphsItems.DOLPHIN_FIN)
+                    .setDesc(
+                        arrayListOf(
+                            "animorphs.transformation.animorphs.desc.${Transformations.DOLPHIN.path}.0"
+                        )
+                    )
+                    .addAbilities(
+                        arrayListOf(
+                            Identifier("animorphs:dolphins_grace_status_effect"),
+                            Abilities.MOIST_SKIN
+                        )
+                    )
+                )
+
             }.accept(consumer)
         }
     }
@@ -326,6 +359,18 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                         arrayListOf<Rule>()
                             .addSelf(Rule().setDecorator(StingDecorator()))
                     )
+                )
+
+                t.accept(
+                    Ability()
+                        .setId(Abilities.MOIST_SKIN)
+                        .setName("animorphs.ability.animorphs.name.moist_skin")
+                        .setColor(Color(42, 45, 89))
+                        .setSign(Ability.Sign.NEGATIVE)
+                        .setDesc(arrayListOf("animorphs.ability.animorphs.desc.moist_skin"))
+                        .addRules(
+                            arrayListOf(Rule().setDecorator(MoistSkinRuleDecorator()))
+                        )
                 )
 
                 (DamageTypes::class.java.declaredFields).forEach { e ->
