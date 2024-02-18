@@ -1,8 +1,10 @@
 package basicallyiamfox.ani.decorator.rule
 
+import basicallyiamfox.ani.core.ability.Abilities
 import basicallyiamfox.ani.core.rule.RuleDecorator
 import basicallyiamfox.ani.core.serializer.ISerializer
 import basicallyiamfox.ani.core.serializer.TypeSerializers
+import basicallyiamfox.ani.decorator.condition.StingDecorator
 import net.minecraft.entity.damage.DamageType
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.registry.RegistryKey
@@ -17,6 +19,7 @@ object RuleDecorators {
     private val modifyAirGenerationFunctions = register(ModifyAirGenerationRuleDecorator.ID, ModifyAirGenerationRuleDecorator.Serializer)
     private val modifyDamageReceivedFunctions = register(ModifyDamageReceivedRuleDecorator.ID, ModifyDamageReceivedRuleDecorator.Serializer)
     private val playSoundFunctions = register(PlaySoundRuleDecorator.ID, PlaySoundRuleDecorator.Serializer)
+    private val stingFunctions = register(Abilities.STING, StingDecorator.Serializer)
 
     @JvmStatic
     fun effectDecorator(statusEffect: StatusEffect): StatusEffectRuleDecorator =

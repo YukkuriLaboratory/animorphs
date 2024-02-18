@@ -10,4 +10,5 @@ object Abilities {
     val NOTE_TICK = ModIdentifier("note_tick")
     val JUMP_BOOST_STATUS_EFFECT = ModIdentifier("jump_boost_status_effect")
     val IMMUNE_TO_FALL_DAMAGE = ModIdentifier("immune_to_fall_damage")
+    val STING = ModIdentifier("sting")
 }

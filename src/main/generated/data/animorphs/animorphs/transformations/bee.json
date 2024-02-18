@@ -3,7 +3,8 @@
     "animorphs:beefly",
     "animorphs:jump_boost_status_effect",
     "animorphs:immune_to_fall_damage",
-    "animorphs:soft_wings"
+    "animorphs:soft_wings",
+    "animorphs:sting"
   ],
   "color": 15647809,
   "conditions": [

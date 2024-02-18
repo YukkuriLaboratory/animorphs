@@ -121,6 +121,9 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             translationBuilder.addAbilityName(Abilities.NOTE_TICK, "Note Tick")
             translationBuilder.addAbilityDesc(Abilities.NOTE_TICK, "Moving will occasionally play notes.")
 
+            translationBuilder.addAbilityName(Abilities.STING, "Sting")
+            translationBuilder.addAbilityDesc(Abilities.STING, "Effect poison to target when attacks. But you will be died.")
+
             (DamageTypes::class.java.declaredFields).forEach { e ->
                 if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
                     return@forEach
@@ -163,6 +166,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                             .addSelf(Abilities.JUMP_BOOST_STATUS_EFFECT)
                             .addSelf(Abilities.IMMUNE_TO_FALL_DAMAGE)
                             .addSelf(Abilities.SOFT_WINGS)
+                            .addSelf(Abilities.STING)
                     )
                     .addConditions(
                         arrayListOf<Condition>()
@@ -308,6 +312,19 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     .addRules(
                         arrayListOf<Rule>()
                             .addSelf(Rule().setDecorator(NoteTickRuleDecorator(10)))
+                    )
+                )
+
+                t.accept(
+                    Ability()
+                    .setId(Abilities.STING)
+                    .setName("animorphs.ability.animorphs.name.sting")
+                    .setColor(Color(73, 185, 96))
+                    .setSign(Ability.Sign.NEUTRAL)
+                    .setDesc(arrayListOf<String>().addSelf("animorphs.ability.animorphs.desc.sting"))
+                    .addRules(
+                        arrayListOf<Rule>()
+                            .addSelf(Rule().setDecorator(StingDecorator()))
                     )
                 )
 
