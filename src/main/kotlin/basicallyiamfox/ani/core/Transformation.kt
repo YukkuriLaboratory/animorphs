@@ -5,6 +5,7 @@ import basicallyiamfox.ani.core.serializer.ISerializer
 import basicallyiamfox.ani.extensions.*
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
+import net.minecraft.client.util.SkinTextures
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.item.Item
 import net.minecraft.network.PacketByteBuf
@@ -16,8 +17,8 @@ class Transformation {
     object Serializer : ISerializer<Transformation> {
         override fun toJson(obj: JsonObject, type: Transformation) {
             obj.addProperty("id", type.id)
-            obj.addProperty("skin", type.skin)
-            obj.addProperty("slim", type.skinSlim)
+            obj.addProperty("skin", type.skin.texture)
+            obj.addProperty("slim", type.skinSlim.texture)
             obj.addProperty("item", type.itemId)
 
             if (type.desc != null) {
@@ -84,8 +85,8 @@ class Transformation {
 
         override fun toPacket(buf: PacketByteBuf, type: Transformation) {
             buf.writeIdentifier(type.id)
-            buf.writeIdentifier(type.skin)
-            buf.writeIdentifier(type.skinSlim)
+            buf.writeIdentifier(type.skin.texture)
+            buf.writeIdentifier(type.skinSlim.texture)
             buf.writeIdentifier(type.itemId)
 
             buf.writeBoolean(type.desc != null)
@@ -152,9 +153,9 @@ class Transformation {
 
     lateinit var id: Identifier
         private set
-    lateinit var skin: Identifier
+    lateinit var skin: SkinTextures
         private set
-    lateinit var skinSlim: Identifier
+    lateinit var skinSlim: SkinTextures
         private set
     lateinit var itemId: Identifier
         private set
@@ -189,11 +190,11 @@ class Transformation {
         return this
     }
     fun setSkin(skin: Identifier): Transformation {
-        this.skin = skin
+        this.skin = SkinTextures(skin, null, null, null, SkinTextures.Model.WIDE, true)
         return this
     }
     fun setSlim(skinSlim: Identifier): Transformation {
-        this.skinSlim = skinSlim
+        this.skinSlim = SkinTextures(skinSlim, null, null, null, SkinTextures.Model.SLIM, true)
         return this
     }
     fun setItem(item: Item): Transformation {

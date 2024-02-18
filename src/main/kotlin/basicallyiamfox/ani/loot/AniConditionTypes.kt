@@ -6,7 +6,6 @@ import net.minecraft.loot.condition.LootConditionType
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.util.Identifier
-import net.minecraft.util.JsonSerializer
 
 object AniConditionTypes {
     @JvmField

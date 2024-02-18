@@ -8,6 +8,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.client.util.SkinTextures;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
@@ -29,8 +30,8 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
         super(world, pos, yaw, gameProfile);
     }
 
-    @Inject(method = "getSkinTexture", at = @At("RETURN"), cancellable = true)
-    private void animorphs$changeSkinDependingOnTransformation(CallbackInfoReturnable<Identifier> cir) {
+    @Inject(method = "getSkinTextures", at = @At("RETURN"), cancellable = true)
+    private void animorphs$changeSkinDependingOnTransformation(CallbackInfoReturnable<SkinTextures> cir) {
         if (isSpectator())
             return;
 
@@ -47,14 +48,14 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
         if (transformation == null || !transformation.isActive(clientWorld, this))
             return;
 
-        Identifier path;
-        if (DefaultSkinHelper.getModel(getUuid()).equals("slim")) {
-            path = transformation.getSkinSlim();
+        SkinTextures textures;
+        if (DefaultSkinHelper.getSkinTextures(getUuid()).model().equals(SkinTextures.Model.SLIM)) {
+            textures = transformation.getSkinSlim();
         }
         else {
-            path = transformation.getSkin();
+            textures = transformation.getSkin();
         }
 
-        cir.setReturnValue(path);
+        cir.setReturnValue(textures);
     }
 }
