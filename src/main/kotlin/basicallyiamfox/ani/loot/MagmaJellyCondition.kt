@@ -1,19 +1,26 @@
 package basicallyiamfox.ani.loot
 
-import basicallyiamfox.ani.extensions.getDouble
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonObject
-import com.google.gson.JsonSerializationContext
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.loot.condition.LootCondition
 import net.minecraft.loot.condition.LootConditionType
 import net.minecraft.loot.context.LootContext
-import net.minecraft.util.JsonSerializer
 import kotlin.math.pow
 
 class MagmaJellyCondition(
     private val divider: Double,
     private val chance: Double
 ) : LootCondition {
+
+    companion object {
+        val CODEC: Codec<MagmaJellyCondition> = RecordCodecBuilder.create {
+            it.group(
+                Codec.DOUBLE.fieldOf("chance").forGetter(MagmaJellyCondition::chance),
+                Codec.DOUBLE.fieldOf("divider").forGetter(MagmaJellyCondition::divider)
+            ).apply(it, ::MagmaJellyCondition)
+        }
+    }
+
     override fun test(t: LootContext?): Boolean {
         var divider: Double = divider
         if (t!!.random.nextFloat() < 0.3f) {
@@ -47,19 +54,6 @@ class MagmaJellyCondition(
                 divider,
                 chance
             )
-        }
-    }
-    class Serializer : JsonSerializer<MagmaJellyCondition> {
-        override fun toJson(json: JsonObject?, condition: MagmaJellyCondition?, context: JsonSerializationContext?) {
-            json!!.addProperty("chance", condition!!.chance)
-            json.addProperty("divider", condition.divider)
-        }
-
-        override fun fromJson(json: JsonObject?, context: JsonDeserializationContext?): MagmaJellyCondition {
-            val builder = Builder()
-            builder.setChance(json!!.getDouble("chance"))
-            builder.setDivider(json.getDouble("divider"))
-            return builder.build() as MagmaJellyCondition
         }
     }
 }
