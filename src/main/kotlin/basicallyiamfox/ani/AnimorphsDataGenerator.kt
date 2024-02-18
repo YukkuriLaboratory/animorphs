@@ -1,6 +1,8 @@
 package basicallyiamfox.ani
 
 import basicallyiamfox.ani.core.Transformation
+import basicallyiamfox.ani.core.Transformations
+import basicallyiamfox.ani.core.ability.Abilities
 import basicallyiamfox.ani.core.ability.Ability
 import basicallyiamfox.ani.core.condition.Condition
 import basicallyiamfox.ani.core.rule.Rule
@@ -79,7 +81,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
             translationBuilder.add(AnimorphsItems.STINGER_O_POLLEN, "Stinger o' Pollen")
             translationBuilder.addTransDesc(
-                Identifier("animorphs:bee"),
+                Transformations.BEE,
                 arrayListOf<String>()
                     .addSelf("Turns you into a werebee when in light.")
                     .addSelf("Grants ability to slowly fly up.")
@@ -87,7 +89,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             )
             translationBuilder.add(AnimorphsItems.MAGMA_JELLY, "Magma Jelly")
             translationBuilder.addTransDesc(
-                Identifier("animorphs:magma_cube"),
+                Transformations.MAGMA_CUBE,
                 arrayListOf<String>()
                     .addSelf("Turns you into a magma cube when in Nether.")
                     .addSelf("Grants ability to make really high jumps.")
@@ -95,7 +97,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             )
             translationBuilder.add(AnimorphsItems.UNFINISHED_SYMPHONY, "Unfinished Symphony")
             translationBuilder.addTransDesc(
-                Identifier("animorphs:note_block"),
+                Transformations.NOTE_BLOCK,
                 arrayListOf<String>()
                     .addSelf("'Flapping my arms I began to cluck,")
                     .addSelf("look at me, I'm the disco duck.'")
@@ -104,20 +106,20 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     .addSelf("Movements will sometimes play sounds.")
             )
 
-            translationBuilder.addAbilityName(Identifier("animorphs:beefly"), "Beefly")
-            translationBuilder.addAbilityDesc(Identifier("animorphs:beefly"), "Allows to fly while holding a special key.")
+            translationBuilder.addAbilityName(Abilities.BEEFLY, "Beefly")
+            translationBuilder.addAbilityDesc(Abilities.BEEFLY, "Allows to fly while holding a special key.")
 
-            translationBuilder.addAbilityName(Identifier("animorphs:soft_wings"), "Soft Wings")
-            translationBuilder.addAbilityDesc(Identifier("animorphs:soft_wings"), "You drown much faster.")
+            translationBuilder.addAbilityName(Abilities.SOFT_WINGS, "Soft Wings")
+            translationBuilder.addAbilityDesc(Abilities.SOFT_WINGS, "You drown much faster.")
 
-            translationBuilder.addAbilityName(Identifier("animorphs:magmatic_jump"), "Magmatic Jump")
-            translationBuilder.addAbilityDesc(Identifier("animorphs:magmatic_jump"), "Holding a special key for long enough will allow to jump high.")
+            translationBuilder.addAbilityName(Abilities.MAGMATIC_JUMP, "Magmatic Jump")
+            translationBuilder.addAbilityDesc(Abilities.MAGMATIC_JUMP, "Holding a special key for long enough will allow to jump high.")
 
-            translationBuilder.addAbilityName(Identifier("animorphs:wet_obsidian"), "Wet Obsidian")
-            translationBuilder.addAbilityDesc(Identifier("animorphs:wet_obsidian"), "You take damage from touching water.")
+            translationBuilder.addAbilityName(Abilities.WET_OBSIDIAN, "Wet Obsidian")
+            translationBuilder.addAbilityDesc(Abilities.WET_OBSIDIAN, "You take damage from touching water.")
 
-            translationBuilder.addAbilityName(Identifier("animorphs:note_tick"), "Note Tick")
-            translationBuilder.addAbilityDesc(Identifier("animorphs:note_tick"), "Moving will occasionally play notes.")
+            translationBuilder.addAbilityName(Abilities.NOTE_TICK, "Note Tick")
+            translationBuilder.addAbilityDesc(Abilities.NOTE_TICK, "Moving will occasionally play notes.")
 
             (DamageTypes::class.java.declaredFields).forEach { e ->
                 if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
@@ -145,7 +147,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             Consumer<Consumer<Transformation?>> { t ->
                 t.accept(Transformation()
                     .setColor(Color(238, 196, 65).rgb)
-                    .setId(Identifier("animorphs:bee"))
+                    .setId(Transformations.BEE)
                     .setSkin(Identifier("animorphs:textures/transformations/bee.png"))
                     .setSlim(Identifier("animorphs:textures/transformations/bee_slim.png"))
                     .setItem(AnimorphsItems.STINGER_O_POLLEN)
@@ -157,10 +159,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     )
                     .addAbilities(
                         arrayListOf<Identifier>()
-                            .addSelf(Identifier("animorphs:beefly"))
-                            .addSelf(Identifier("animorphs:jump_boost_status_effect"))
-                            .addSelf(Identifier("animorphs:immune_to_fall_damage"))
-                            .addSelf(Identifier("animorphs:soft_wings"))
+                            .addSelf(Abilities.BEEFLY)
+                            .addSelf(Abilities.JUMP_BOOST_STATUS_EFFECT)
+                            .addSelf(Abilities.IMMUNE_TO_FALL_DAMAGE)
+                            .addSelf(Abilities.SOFT_WINGS)
                     )
                     .addConditions(
                         arrayListOf<Condition>()
@@ -180,7 +182,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
                 t.accept(Transformation()
                     .setColor(Color(197, 93, 24).rgb)
-                    .setId(Identifier("animorphs:magma_cube"))
+                    .setId(Transformations.MAGMA_CUBE)
                     .setSkin(Identifier("animorphs:textures/transformations/magmacube.png"))
                     .setSlim(Identifier("animorphs:textures/transformations/magmacube.png"))
                     .setItem(AnimorphsItems.MAGMA_JELLY)
@@ -192,10 +194,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     )
                     .addAbilities(
                         arrayListOf<Identifier>()
-                            .addSelf(Identifier("animorphs:magmatic_jump"))
+                            .addSelf(Abilities.MAGMATIC_JUMP)
                             .addSelf(Identifier("animorphs:fire_resistance_status_effect"))
-                            .addSelf(Identifier("animorphs:immune_to_fall_damage"))
-                            .addSelf(Identifier("animorphs:wet_obsidian"))
+                            .addSelf(Abilities.IMMUNE_TO_FALL_DAMAGE)
+                            .addSelf(Abilities.WET_OBSIDIAN)
                     )
                     .addConditions(
                         arrayListOf<Condition>()
@@ -205,7 +207,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
                 t.accept(Transformation()
                     .setColor(Color(119, 215, 0).rgb)
-                    .setId(Identifier("animorphs:note_block"))
+                    .setId(Transformations.NOTE_BLOCK)
                     .setSkin(Identifier("animorphs:textures/transformations/noteman.png"))
                     .setSlim(Identifier("animorphs:textures/transformations/noteman_slim.png"))
                     .setItem(AnimorphsItems.UNFINISHED_SYMPHONY)
@@ -219,7 +221,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     )
                     .addAbilities(
                         arrayListOf<Identifier>()
-                            .addSelf(Identifier("animorphs:note_tick"))
+                            .addSelf(Abilities.NOTE_TICK)
                     )
                 )
 
@@ -231,7 +233,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             Consumer<Consumer<Ability?>> { t ->
                 t.accept(
                     Ability()
-                    .setId(Identifier("animorphs:beefly"))
+                    .setId(Abilities.BEEFLY)
                     .setName("animorphs.ability.animorphs.name.beefly")
                     .setColor(Color(238, 196, 65))
                     .setSign(Ability.Sign.POSITIVE)
@@ -243,7 +245,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 )
                 t.accept(
                     Ability()
-                    .setId(Identifier("animorphs:soft_wings"))
+                    .setId(Abilities.SOFT_WINGS)
                     .setName("animorphs.ability.animorphs.name.soft_wings")
                     .setColor(Color(220, 234, 255))
                     .setSign(Ability.Sign.NEGATIVE)
@@ -264,7 +266,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
                 t.accept(
                     Ability()
-                    .setId(Identifier("animorphs:magmatic_jump"))
+                    .setId(Abilities.MAGMATIC_JUMP)
                     .setName("animorphs.ability.animorphs.name.magmatic_jump")
                     .setColor(Color(197, 93, 24))
                     .setSign(Ability.Sign.POSITIVE)
@@ -276,7 +278,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 )
                 t.accept(
                     Ability()
-                    .setId(Identifier("animorphs:wet_obsidian"))
+                    .setId(Abilities.WET_OBSIDIAN)
                     .setName("animorphs.ability.animorphs.name.wet_obsidian")
                     .setColor(Color(98, 78, 98))
                     .setSign(Ability.Sign.NEGATIVE)
@@ -298,7 +300,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
                 t.accept(
                     Ability()
-                    .setId(Identifier("animorphs:note_tick"))
+                    .setId(Abilities.NOTE_TICK)
                     .setName("animorphs.ability.animorphs.name.note_tick")
                     .setColor(Color(119, 215, 0))
                     .setSign(Ability.Sign.POSITIVE)

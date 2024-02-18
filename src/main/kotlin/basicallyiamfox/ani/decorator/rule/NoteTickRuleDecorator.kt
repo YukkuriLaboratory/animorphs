@@ -1,5 +1,6 @@
 package basicallyiamfox.ani.decorator.rule
 
+import basicallyiamfox.ani.core.ability.Abilities
 import basicallyiamfox.ani.core.rule.RuleDecorator
 import basicallyiamfox.ani.core.serializer.ISerializer
 import basicallyiamfox.ani.extensions.addProperty
@@ -55,7 +56,7 @@ class NoteTickRuleDecorator() : RuleDecorator() {
 
     companion object {
         @JvmStatic
-        val ID = Identifier("animorphs:note_tick")
+        val ID = Abilities.NOTE_TICK
 
         @JvmStatic
         fun colorByNoteType(noteType: Float): Color {

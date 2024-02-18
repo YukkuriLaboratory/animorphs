@@ -17,8 +17,8 @@ class Transformation {
     object Serializer : ISerializer<Transformation> {
         override fun toJson(obj: JsonObject, type: Transformation) {
             obj.addProperty("id", type.id)
-            obj.addProperty("skin", type.skin.texture)
-            obj.addProperty("slim", type.skinSlim.texture)
+            obj.addProperty("skin", type.skin)
+            obj.addProperty("slim", type.skinSlim)
             obj.addProperty("item", type.itemId)
 
             if (type.desc != null) {
@@ -85,8 +85,8 @@ class Transformation {
 
         override fun toPacket(buf: PacketByteBuf, type: Transformation) {
             buf.writeIdentifier(type.id)
-            buf.writeIdentifier(type.skin.texture)
-            buf.writeIdentifier(type.skinSlim.texture)
+            buf.writeIdentifier(type.skin)
+            buf.writeIdentifier(type.skinSlim)
             buf.writeIdentifier(type.itemId)
 
             buf.writeBoolean(type.desc != null)
@@ -153,9 +153,9 @@ class Transformation {
 
     lateinit var id: Identifier
         private set
-    lateinit var skin: SkinTextures
+    lateinit var skin: Identifier
         private set
-    lateinit var skinSlim: SkinTextures
+    lateinit var skinSlim: Identifier
         private set
     lateinit var itemId: Identifier
         private set
@@ -190,11 +190,11 @@ class Transformation {
         return this
     }
     fun setSkin(skin: Identifier): Transformation {
-        this.skin = SkinTextures(skin, null, null, null, SkinTextures.Model.WIDE, true)
+        this.skin = skin
         return this
     }
     fun setSlim(skinSlim: Identifier): Transformation {
-        this.skinSlim = SkinTextures(skinSlim, null, null, null, SkinTextures.Model.SLIM, true)
+        this.skinSlim = skinSlim
         return this
     }
     fun setItem(item: Item): Transformation {

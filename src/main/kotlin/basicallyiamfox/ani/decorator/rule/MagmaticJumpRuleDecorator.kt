@@ -1,6 +1,7 @@
 package basicallyiamfox.ani.decorator.rule
 
 import basicallyiamfox.ani.AnimorphsKeybindings
+import basicallyiamfox.ani.core.ability.Abilities
 import basicallyiamfox.ani.core.rule.RuleDecorator
 import basicallyiamfox.ani.core.serializer.ISerializer
 import basicallyiamfox.ani.extensions.*
@@ -96,7 +97,7 @@ class MagmaticJumpRuleDecorator() : RuleDecorator() {
 
     companion object {
         @JvmStatic
-        val ID = Identifier("animorphs:magmatic_jump")
+        val ID = Abilities.MAGMATIC_JUMP
 
         const val magicScaleNumber = 2.2857144f
 

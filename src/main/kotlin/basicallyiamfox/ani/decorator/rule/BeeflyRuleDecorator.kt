@@ -1,6 +1,8 @@
 package basicallyiamfox.ani.decorator.rule
 
 import basicallyiamfox.ani.AnimorphsKeybindings
+import basicallyiamfox.ani.core.Transformations
+import basicallyiamfox.ani.core.ability.Abilities
 import basicallyiamfox.ani.core.rule.RuleDecorator
 import basicallyiamfox.ani.core.serializer.ISerializer
 import basicallyiamfox.ani.extensions.*
@@ -56,7 +58,7 @@ class BeeflyRuleDecorator() : RuleDecorator() {
     }
     class Packet : FabricPacket {
         companion object {
-            val ID = Identifier("animorphs:bee")
+            val ID = Transformations.BEE
             val TYPE: PacketType<Packet> = PacketType.create(ID) { Packet(it) }
         }
 
@@ -84,7 +86,7 @@ class BeeflyRuleDecorator() : RuleDecorator() {
 
     companion object {
         @JvmStatic
-        val ID = Identifier("animorphs:beefly")
+        val ID = Abilities.BEEFLY
 
         fun fly(player: PlayerEntity, minSpeed: Float, maxSpeed: Float): Vec3d {
             var speed = minSpeed
