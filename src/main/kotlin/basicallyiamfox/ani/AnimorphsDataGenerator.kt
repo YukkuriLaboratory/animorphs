@@ -6,7 +6,6 @@ import basicallyiamfox.ani.core.condition.Condition
 import basicallyiamfox.ani.core.rule.Rule
 import basicallyiamfox.ani.datagen.AnimorphsAbilityProvider
 import basicallyiamfox.ani.datagen.AnimorphsTransformationProvider
-import basicallyiamfox.ani.datagen.FabricGenericProvider
 import basicallyiamfox.ani.decorator.condition.*
 import basicallyiamfox.ani.decorator.rule.*
 import basicallyiamfox.ani.extensions.addAbilityDesc
@@ -30,7 +29,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
 import net.minecraft.data.client.BlockStateModelGenerator
 import net.minecraft.data.client.ItemModelGenerator
 import net.minecraft.data.client.Models
-import net.minecraft.data.server.recipe.RecipeJsonProvider
+import net.minecraft.data.server.recipe.RecipeExporter
 import net.minecraft.data.server.recipe.ShapedRecipeJsonBuilder
 import net.minecraft.entity.damage.DamageType
 import net.minecraft.entity.damage.DamageTypes
@@ -356,7 +355,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
         override fun getName(): String = "Animorphs/Abilities"
     }
     class RecipeGenerator(output: FabricDataOutput) : FabricRecipeProvider(output) {
-        override fun generate(exporter: Consumer<RecipeJsonProvider>?) {
+        override fun generate(exporter: RecipeExporter) {
             ShapedRecipeJsonBuilder
                 .create(RecipeCategory.MISC, AnimorphsItems.UNFINISHED_SYMPHONY)
                 .input('#', ItemTags.TERRACOTTA)

@@ -4,6 +4,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import net.minecraft.item.Item
+import net.minecraft.registry.entry.RegistryEntry
 import net.minecraft.util.JsonHelper
 import java.math.BigDecimal
 import java.math.BigInteger
@@ -22,7 +23,7 @@ fun JsonObject.hasPrimitive(element: String): Boolean = JsonHelper.hasPrimitive(
 fun JsonObject.hasElement(element: String): Boolean = JsonHelper.hasElement(this, element)
 
 fun JsonElement.asString(name: String): String = JsonHelper.asString(this, name)
-fun JsonElement.asItem(name: String): Item = JsonHelper.asItem(this, name)
+fun JsonElement.asItem(name: String): Item = JsonHelper.asItem(this, name).value()
 fun JsonElement.asBoolean(name: String): Boolean = JsonHelper.asBoolean(this, name)
 fun JsonElement.asDouble(name: String): Double = JsonHelper.asDouble(this, name)
 fun JsonElement.asFloat(name: String): Float = JsonHelper.asFloat(this, name)
@@ -38,8 +39,8 @@ fun JsonElement.asArray(name: String): JsonArray = JsonHelper.asArray(this, name
 
 fun JsonObject.getString(element: String): String = JsonHelper.getString(this, element)
 fun JsonObject.getString(element: String, defaultStr: String): String? = JsonHelper.getString(this, element, defaultStr)
-fun JsonObject.getItem(element: String): Item = JsonHelper.getItem(this, element)
-fun JsonObject.getItem(element: String, defaultItem: Item): Item? = JsonHelper.getItem(this, element, defaultItem)
+fun JsonObject.getItem(element: String): Item = JsonHelper.getItem(this, element).value()
+fun JsonObject.getItem(element: String, defaultItem: Item): Item? = JsonHelper.getItem(this, element, RegistryEntry.of(defaultItem))?.value()
 fun JsonObject.getBoolean(element: String): Boolean = JsonHelper.getBoolean(this, element)
 fun JsonObject.getBoolean(element: String, defaultBoolean: Boolean): Boolean = JsonHelper.getBoolean(this, element, defaultBoolean)
 fun JsonObject.getDouble(element: String): Double = JsonHelper.getDouble(this, element)
