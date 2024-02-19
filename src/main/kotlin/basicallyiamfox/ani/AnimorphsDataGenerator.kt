@@ -135,7 +135,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             translationBuilder.addAbilityDesc(Abilities.STING, "Effect poison to target when attacks. But you will be died.")
 
             translationBuilder.addAbilityName(Abilities.MOIST_SKIN, "Moist Skin")
-            translationBuilder.addAbilityDesc(Abilities.MOIST_SKIN, "Needs to keep wet skin")
+            translationBuilder.addAbilityDesc(Abilities.MOIST_SKIN, "Needs to keep skin moisture")
 
             (DamageTypes::class.java.declaredFields).forEach { e ->
                 if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
@@ -246,8 +246,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     .setColor(Color(217, 118, 77).rgb)
                     .setId(Transformations.DOLPHIN)
                     .setSkin(Identifier("animorphs:textures/transformations/dolphin.png"))
-                    //TODO: Create Slin skin
-                    .setSlim(Identifier("animorphs:textures/transformations/noteman_slim.png"))
+                    .setSlim(Identifier("animorphs:textures/transformations/dolphin_slim.png"))
                     .setItem(AnimorphsItems.DOLPHIN_FIN)
                     .setDesc(
                         arrayListOf(
