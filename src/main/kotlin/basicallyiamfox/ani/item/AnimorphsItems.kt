@@ -22,6 +22,7 @@ object AnimorphsItems {
             entries.add(STINGER_O_POLLEN)
             entries.add(MAGMA_JELLY)
             entries.add(UNFINISHED_SYMPHONY)
+            entries.add(DOLPHIN_FIN)
         }
         .build()
 
@@ -31,6 +32,8 @@ object AnimorphsItems {
     val MAGMA_JELLY: Item = add("magma_jelly", TransformationItem())
     @JvmField
     val UNFINISHED_SYMPHONY: Item = add("unfinished_symphony", TransformationItem())
+    @JvmField
+    val DOLPHIN_FIN: Item = add("dolphin_fin", TransformationItem())
 
     fun init() {
         for ((key, value) in ITEMS) {

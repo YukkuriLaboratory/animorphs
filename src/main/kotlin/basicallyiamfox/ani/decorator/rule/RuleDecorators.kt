@@ -20,6 +20,7 @@ object RuleDecorators {
     private val modifyDamageReceivedFunctions = register(ModifyDamageReceivedRuleDecorator.ID, ModifyDamageReceivedRuleDecorator.Serializer)
     private val playSoundFunctions = register(PlaySoundRuleDecorator.ID, PlaySoundRuleDecorator.Serializer)
     private val stingFunctions = register(Abilities.STING, StingDecorator.Serializer)
+    private val moistSkinFunctions = register(Abilities.MOIST_SKIN, MoistSkinRuleDecorator.Serializer)
 
     @JvmStatic
     fun effectDecorator(statusEffect: StatusEffect): StatusEffectRuleDecorator =
