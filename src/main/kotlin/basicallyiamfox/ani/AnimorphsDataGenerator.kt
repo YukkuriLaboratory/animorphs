@@ -17,7 +17,6 @@ import basicallyiamfox.ani.loot.MagmaJellyCondition
 import basicallyiamfox.ani.loot.StingerOPollenCondition
 import basicallyiamfox.ani.util.ComparisonOperator
 import basicallyiamfox.ani.util.StatModifier
-import basicallyiamfox.ani.util.TransKeyUtil
 import com.google.gson.JsonObject
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
@@ -77,7 +76,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
 
     class LangGenerator(output: FabricDataOutput) : FabricLanguageProvider(output, "en_us") {
         override fun generateTranslations(translationBuilder: TranslationBuilder?) {
-            translationBuilder!!.add(TransKeyUtil.getItemGroupKey("transformations_group"), "Transformation items")
+            translationBuilder!!.add("transformations_group".toItemGroupKey(), "Transformation items")
 
             translationBuilder.add(AnimorphsItems.STINGER_O_POLLEN, "Stinger o' Pollen")
             translationBuilder.addTransDesc(
@@ -152,14 +151,14 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 )
             }
 
-            translationBuilder.add(TransKeyUtil.getTooltipKey("hold_shift_to_show"), "Hold [SHIFT] to show abilities.")
-            translationBuilder.add(TransKeyUtil.getTooltipKey("is_visual_active"), "Is Visual Active:")
-            translationBuilder.add(TransKeyUtil.getAbilitySignKey("positive"), "[+]")
-            translationBuilder.add(TransKeyUtil.getAbilitySignKey("neutral"), "[=]")
-            translationBuilder.add(TransKeyUtil.getAbilitySignKey("negative"), "[-]")
-            translationBuilder.add(TransKeyUtil.getCategoryKey("keys"), "Animorphs key binds")
-            translationBuilder.add(TransKeyUtil.getKeyBindKey("beefly"), "Bee Fly ability")
-            translationBuilder.add(TransKeyUtil.getKeyBindKey("magma_jump"), "Magmatic Jump ability")
+            translationBuilder.add("hold_shift_to_show".toTooltipKey(), "Hold [SHIFT] to show abilities.")
+            translationBuilder.add("is_visual_active".toTooltipKey(), "Is Visual Active:")
+            translationBuilder.add("positive".toAbilitySignKey(), "[+]")
+            translationBuilder.add("neutral".toAbilitySignKey(), "[=]")
+            translationBuilder.add("negative".toAbilitySignKey(), "[-]")
+            translationBuilder.add("keys".toCategoryKey(), "Animorphs key binds")
+            translationBuilder.add("beefly".toKeyBindKey(), "Bee Fly ability")
+            translationBuilder.add("magma_jump".toKeyBindKey(), "Magmatic Jump ability")
         }
     }
 
@@ -175,9 +174,9 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                         .setItem(AnimorphsItems.STINGER_O_POLLEN)
                         .setDesc(
                             arrayListOf<String>()
-                                .addSelf(TransKeyUtil.getTransformDescKey("bee.0"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("bee.1"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("bee.2"))
+                                .addSelf("bee.0".toTransformDescKey())
+                                .addSelf("bee.1".toTransformDescKey())
+                                .addSelf("bee.2".toTransformDescKey())
                         )
                         .addAbilities(
                             arrayListOf<Identifier>()
@@ -213,9 +212,9 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                         .setItem(AnimorphsItems.MAGMA_JELLY)
                         .setDesc(
                             arrayListOf<String>()
-                                .addSelf(TransKeyUtil.getTransformDescKey("magma_cube.0"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("magma_cube.1"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("magma_cube.2"))
+                                .addSelf("magma_cube.0".toTransformDescKey())
+                                .addSelf("magma_cube.1".toTransformDescKey())
+                                .addSelf("magma_cube.2".toTransformDescKey())
                         )
                         .addAbilities(
                             arrayListOf<Identifier>()
@@ -246,11 +245,11 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                         .setItem(AnimorphsItems.UNFINISHED_SYMPHONY)
                         .setDesc(
                             arrayListOf<String>()
-                                .addSelf(TransKeyUtil.getTransformDescKey("note_block.0"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("note_block.1"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("note_block.2"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("note_block.3"))
-                                .addSelf(TransKeyUtil.getTransformDescKey("note_block.4"))
+                                .addSelf("note_block.0".toTransformDescKey())
+                                .addSelf("note_block.1".toTransformDescKey())
+                                .addSelf("note_block.2".toTransformDescKey())
+                                .addSelf("note_block.3".toTransformDescKey())
+                                .addSelf("note_block.4".toTransformDescKey())
                         )
                         .addAbilities(
                             arrayListOf<Identifier>()
@@ -267,7 +266,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                         .setItem(AnimorphsItems.DOLPHIN_FIN)
                         .setDesc(
                             arrayListOf(
-                                TransKeyUtil.getTransformDescKey("${Transformations.DOLPHIN.path}.0")
+                                "${Transformations.DOLPHIN.path}.0".toTransformDescKey()
                             )
                         )
                         .addAbilities(
@@ -288,10 +287,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.BEEFLY)
-                        .setName(TransKeyUtil.getAbilityNameKey("beefly"))
+                        .setName("beefly".toAbilityNameKey())
                         .setColor(Color(238, 196, 65))
                         .setSign(Ability.Sign.POSITIVE)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("beefly")))
+                        .setDesc(arrayListOf<String>().addSelf("beefly".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(Rule().setDecorator(BeeflyRuleDecorator(0.077f, 0.0796f, 30)))
@@ -300,10 +299,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.SOFT_WINGS)
-                        .setName(TransKeyUtil.getAbilityNameKey("soft_wings"))
+                        .setName("soft_wings".toAbilityNameKey())
                         .setColor(Color(220, 234, 255))
                         .setSign(Ability.Sign.NEGATIVE)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("soft_wings")))
+                        .setDesc(arrayListOf<String>().addSelf("soft_wings".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(
@@ -335,10 +334,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.MAGMATIC_JUMP)
-                        .setName(TransKeyUtil.getAbilityNameKey("magmatic_jump"))
+                        .setName("magmatic_jump".toAbilityNameKey())
                         .setColor(Color(197, 93, 24))
                         .setSign(Ability.Sign.POSITIVE)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("magmatic_jump")))
+                        .setDesc(arrayListOf<String>().addSelf("magmatic_jump".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(Rule().setDecorator(MagmaticJumpRuleDecorator(100, 175)))
@@ -347,10 +346,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.WET_OBSIDIAN)
-                        .setName(TransKeyUtil.getAbilityNameKey("wet_obsidian"))
+                        .setName("wet_obsidian".toAbilityNameKey())
                         .setColor(Color(98, 78, 98))
                         .setSign(Ability.Sign.NEGATIVE)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("wet_obsidian")))
+                        .setDesc(arrayListOf<String>().addSelf("wet_obsidian".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(
@@ -394,10 +393,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.NOTE_TICK)
-                        .setName(TransKeyUtil.getAbilityNameKey("note_tick"))
+                        .setName("note_tick".toAbilityNameKey())
                         .setColor(Color(119, 215, 0))
                         .setSign(Ability.Sign.POSITIVE)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("note_tick")))
+                        .setDesc(arrayListOf<String>().addSelf("note_tick".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(Rule().setDecorator(NoteTickRuleDecorator(10)))
@@ -407,10 +406,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.STING)
-                        .setName(TransKeyUtil.getAbilityNameKey("sting"))
+                        .setName("sting".toAbilityNameKey())
                         .setColor(Color(73, 185, 96))
                         .setSign(Ability.Sign.NEUTRAL)
-                        .setDesc(arrayListOf<String>().addSelf(TransKeyUtil.getAbilityDescKey("sting")))
+                        .setDesc(arrayListOf<String>().addSelf("sting".toAbilityDescKey()))
                         .addRules(
                             arrayListOf<Rule>()
                                 .addSelf(Rule().setDecorator(StingDecorator()))
@@ -420,10 +419,10 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                 t.accept(
                     Ability()
                         .setId(Abilities.MOIST_SKIN)
-                        .setName(TransKeyUtil.getAbilityNameKey("moist_skin"))
+                        .setName("moist_skin".toAbilityNameKey())
                         .setColor(Color(42, 45, 89))
                         .setSign(Ability.Sign.NEGATIVE)
-                        .setDesc(arrayListOf(TransKeyUtil.getAbilityDescKey("moist_skin")))
+                        .setDesc(arrayListOf("moist_skin".toAbilityDescKey()))
                         .addRules(
                             arrayListOf(Rule().setDecorator(MoistSkinRuleDecorator()))
                         )
@@ -437,7 +436,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
                     t.accept(
                         Ability()
                             .setId(ModIdentifier("immune_to_${damageType.value.path}_damage"))
-                            .setName(TransKeyUtil.getAbilityNameKey("immune_to_${damageType.value.path}_damage"))
+                            .setName("immune_to_${damageType.value.path}_damage".toAbilityNameKey())
                             .setSign(Ability.Sign.POSITIVE)
                             .setColor(Color(200, 220, 255))
                             .addRules(
