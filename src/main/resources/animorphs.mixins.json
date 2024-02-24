@@ -3,13 +3,12 @@
   "package": "basicallyiamfox.ani.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "BeehiveBlockMixin",
     "DataPackContentsMixin",
-    "DolphinEntityMixin",
     "IEntityMixin",
     "ILivingEntityMixin",
     "IMinecraftServerMixin",
     "PlayerEntityMixin",
+    "ItemStackMixin",
     "decorator.rule.BeeflyPlayerEntityMixin",
     "decorator.rule.MagmaticJumpPlayerEntityMixin",
     "decorator.rule.ModifyAirGenerationLivingEntityMixin",
@@ -19,7 +18,7 @@
   ],
   "client": [
     "AbstractClientPlayerEntityMixin",
-    "ItemStackMixin",
+    "client.ItemStackMixin",
     "decorator.rule.MagmaticJumpPlayerEntityRendererMixin"
   ],
   "injectors": {

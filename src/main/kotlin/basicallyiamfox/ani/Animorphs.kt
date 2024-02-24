@@ -21,6 +21,6 @@ object Animorphs : ModInitializer {
         AnimorphsItems.init()
 
         AniConditionTypes.init()
-        AnimorphsLootTables.listen()
+//        AnimorphsLootTables.listen()
     }
 }

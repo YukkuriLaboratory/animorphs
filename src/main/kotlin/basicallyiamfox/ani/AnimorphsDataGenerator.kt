@@ -59,8 +59,8 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
         pack.addProvider(::LangGenerator)
         pack.addProvider(::JPLangGenerator)
         pack.addProvider(::ModelGenerator)
-        pack.addProvider(::RecipeGenerator)
-        pack.addProvider(::LootTableGenerator)
+//        pack.addProvider(::RecipeGenerator)
+//        pack.addProvider(::LootTableGenerator)
     }
 
     class ModelGenerator(output: FabricDataOutput) : FabricModelProvider(output) {
