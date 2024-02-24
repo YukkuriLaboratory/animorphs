@@ -18,6 +18,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,6 +26,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntity.class)
 public abstract class BeeflyPlayerEntityMixin extends LivingEntity implements BeeflyRuleDecorator.BeeflyPlayerEntity {
+    @Shadow public abstract void remove(RemovalReason reason);
+
     @Unique
     private int stingerFly;
     @Unique
@@ -71,6 +74,7 @@ public abstract class BeeflyPlayerEntityMixin extends LivingEntity implements Be
     @Override
     public void onAttacking(Entity target) {
         if (this instanceof IPlayerEntity player) {
+            if (player.getActiveTransformation() == null) return;
             if (player.getActiveTransformation().equals(Transformations.BEE)) {
                 target.damage(this.getDamageSources().sting(this), (float) ((int) this.getAttributeValue(EntityAttributes.GENERIC_ATTACK_DAMAGE)));
                 this.applyDamageEffects(this, target);
