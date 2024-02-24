@@ -3,7 +3,6 @@ package basicallyiamfox.ani.mixin;
 
 import basicallyiamfox.ani.item.AnimorphsItems;
 import basicallyiamfox.ani.loot.AniLootTableIds;
-import basicallyiamfox.ani.loot.AniContextParameters;
 import basicallyiamfox.ani.decorator.rule.BeeflyRuleDecorator;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -11,18 +10,17 @@ import net.minecraft.block.BeehiveBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameterSet;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.loot.context.LootContextTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-import java.util.HashMap;
 
 @Mixin(BeehiveBlock.class)
 public abstract class BeehiveBlockMixin extends BlockWithEntity {
@@ -45,8 +43,11 @@ public abstract class BeehiveBlockMixin extends BlockWithEntity {
             var table = player.getServer().getLootManager().getLootTable(AniLootTableIds.STINGER_O_POLLEN)
                     .generateLoot(
                             new LootContextParameterSet.Builder((ServerWorld) world)
-                                    .addOptional(AniContextParameters.THIS_PLAYER, player)
-                                    .build(LootContextTypes.EMPTY)
+                                    .add(LootContextParameters.BLOCK_STATE, state)
+                                    .add(LootContextParameters.ORIGIN, Vec3d.of(pos))
+                                    .add(LootContextParameters.TOOL, player.getStackInHand(hand))
+                                    .addOptional(LootContextParameters.THIS_ENTITY, player)
+                                    .build(LootContextTypes.BLOCK)
                     );
             if (table.size() > 0) {
                 BeehiveBlock.dropStack(world, pos, AnimorphsItems.STINGER_O_POLLEN.getDefaultStack());

@@ -1,6 +1,5 @@
 package basicallyiamfox.ani.loot
 
-import basicallyiamfox.ani.decorator.rule.BeeflyRuleDecorator.BeeflyPlayerEntity
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.loot.condition.LootCondition
@@ -31,21 +30,8 @@ class StingerOPollenCondition(
         }
     }
 
-    override fun test(t: LootContext?): Boolean {
-        val player = t!!.get(AniContextParameters.THIS_PLAYER)
-
-        player as BeeflyPlayerEntity
-        val hours = player.stingerTick / divideByXEveryYTicks
-        var divider = defaultDivider / (this.divider * hours)
-        if (divider < minDivider) {
-            divider = minDivider
-        }
-
-        var chance = undividedChance / divider
-        if (chance >= undividedChance * compareMult) {
-            chance = capChance
-        }
-        return t.random.nextDouble() <= chance
+    override fun test(t: LootContext): Boolean {
+        return t.random.nextDouble() <= 0.1
     }
 
     override fun getType(): LootConditionType {
