@@ -5,6 +5,7 @@
   "mixins": [
     "BeehiveBlockMixin",
     "DataPackContentsMixin",
+    "DolphinEntityMixin",
     "IEntityMixin",
     "ILivingEntityMixin",
     "IMinecraftServerMixin",
