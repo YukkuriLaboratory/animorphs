@@ -57,6 +57,7 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
         pack.addProvider(::AbilityGenerator)
         pack.addProvider(::TransformationGenerator)
         pack.addProvider(::LangGenerator)
+        pack.addProvider(::JPLangGenerator)
         pack.addProvider(::ModelGenerator)
         pack.addProvider(::RecipeGenerator)
         pack.addProvider(::LootTableGenerator)
@@ -140,16 +141,17 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             translationBuilder.addAbilityName(Abilities.MOIST_SKIN, "Moist Skin")
             translationBuilder.addAbilityDesc(Abilities.MOIST_SKIN, "Needs to keep skin moisture")
 
-            (DamageTypes::class.java.declaredFields).forEach { e ->
-                if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
-                    return@forEach
-
-                val damageType = (e.get(null) as RegistryKey<DamageType>)
-                translationBuilder.addAbilityName(
-                    ModIdentifier("immune_to_${damageType.value.path}_damage"),
-                    "Negates ${damageType.value.path.replace('_', ' ')} damage"
-                )
-            }
+//            (DamageTypes::class.java.declaredFields).forEach { e ->
+//                if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
+//                    return@forEach
+//
+//                val damageType = (e.get(null) as RegistryKey<DamageType>)
+//                translationBuilder.addAbilityName(
+//                    ModIdentifier("immune_to_${damageType.value.path}_damage"),
+//                    "Negates ${damageType.value.path.replace('_', ' ')} damage"
+//                )
+//            }
+            translationBuilder.addAbilityName(ModIdentifier("immune_to_fall_damage"), "Negates fall damage")
 
             translationBuilder.add("hold_shift_to_show".toTooltipKey(), "Hold [SHIFT] to show abilities.")
             translationBuilder.add("is_visual_active".toTooltipKey(), "Is Visual Active:")
@@ -159,6 +161,95 @@ class AnimorphsDataGenerator : DataGeneratorEntrypoint {
             translationBuilder.add("keys".toCategoryKey(), "Animorphs key binds")
             translationBuilder.add("beefly".toKeyBindKey(), "Bee Fly ability")
             translationBuilder.add("magma_jump".toKeyBindKey(), "Magmatic Jump ability")
+        }
+    }
+
+    class JPLangGenerator(output: FabricDataOutput) : FabricLanguageProvider(output, "ja_jp") {
+        override fun generateTranslations(translationBuilder: TranslationBuilder?) {
+            translationBuilder!!.add("transformations_group".toItemGroupKey(), "変身アイテム")
+
+            translationBuilder.add(AnimorphsItems.STINGER_O_POLLEN, "蜂の蜜")
+            translationBuilder.addTransDesc(
+                Transformations.BEE,
+                arrayListOf<String>()
+                    .addSelf("明るい場所で、蜂の能力が使えるようになります。")
+                    .addSelf("ふわっと飛び上がれる能力を手に入れることができます。")
+                    .addSelf("また、蜂になっている間はステータスが上昇します。")
+            )
+            translationBuilder.add(AnimorphsItems.MAGMA_JELLY, "マグマゼリー")
+            translationBuilder.addTransDesc(
+                Transformations.MAGMA_CUBE,
+                arrayListOf<String>()
+                    .addSelf("ネザーでマグマキューブになることができます。")
+                    .addSelf("とても高く飛べるようになる能力が付与されます。")
+                    .addSelf("また、炎に対する耐性が増加します。")
+            )
+            translationBuilder.add(AnimorphsItems.UNFINISHED_SYMPHONY, "未完成の交響曲")
+            translationBuilder.addTransDesc(
+                Transformations.NOTE_BLOCK,
+                arrayListOf<String>()
+                    .addSelf("音を鳴らしながら、私は言った、")
+                    .addSelf("私を見て！私はディスコにいる鳥よ！")
+                    .addSelf("")
+                    .addSelf("音ブロックになることができます。")
+                    .addSelf("歩いていると時々音が鳴るようになります。")
+            )
+
+            translationBuilder.add(AnimorphsItems.DOLPHIN_FIN, "イルカのヒレ")
+            translationBuilder.addTransDesc(
+                Transformations.DOLPHIN,
+                arrayListOf(
+                    "わーい！ イルカのヒレだ！"
+                )
+            )
+
+            translationBuilder.addAbilityName(Abilities.BEEFLY, "蜂飛行")
+            translationBuilder.addAbilityDesc(Abilities.BEEFLY, "設定したキーを押している間、空を飛べるようになります。")
+
+            translationBuilder.addAbilityName(Abilities.SOFT_WINGS, "柔らかい翼")
+            translationBuilder.addAbilityDesc(Abilities.SOFT_WINGS, "早く溺れるようになります。")
+
+            translationBuilder.addAbilityName(Abilities.MAGMATIC_JUMP, "マグマジャンプ")
+            translationBuilder.addAbilityDesc(
+                Abilities.MAGMATIC_JUMP,
+                "設定したキーを長押しして溜めると高く飛べるようになります。"
+            )
+
+            translationBuilder.addAbilityName(Abilities.WET_OBSIDIAN, "濡れた黒曜石")
+            translationBuilder.addAbilityDesc(Abilities.WET_OBSIDIAN, "水に触れるとダメージを受けるようになります。")
+
+            translationBuilder.addAbilityName(Abilities.NOTE_TICK, "気まぐれな音楽家")
+            translationBuilder.addAbilityDesc(Abilities.NOTE_TICK, "歩いていると時々、音がなるようになります。")
+
+            translationBuilder.addAbilityName(Abilities.STING, "蜂の針")
+            translationBuilder.addAbilityDesc(
+                Abilities.STING,
+                "相手に毒を与えることができますが、最終的にあなたは死んでしまうでしょう。"
+            )
+
+            translationBuilder.addAbilityName(Abilities.MOIST_SKIN, "肌のうるおい")
+            translationBuilder.addAbilityDesc(Abilities.MOIST_SKIN, "肌の保湿が必要になります。")
+
+//            (DamageTypes::class.java.declaredFields).forEach { e ->
+//                if (!Modifier.isStatic(e.modifiers) && e.canAccess(null))
+//                    return@forEach
+//
+//                val damageType = (e.get(null) as RegistryKey<DamageType>)
+//                translationBuilder.addAbilityName(
+//                    ModIdentifier("immune_to_${damageType.value.path}_damage"),
+//                    "${damageType.value.path.replace('_', ' ')}ダメージを無効化"
+//                )
+//            }
+            translationBuilder.addAbilityName(ModIdentifier("immune_to_fall_damage"), "落下ダメージを無効化")
+
+            translationBuilder.add("hold_shift_to_show".toTooltipKey(), "[SHIFT] 長押しで能力の一覧を表示")
+            translationBuilder.add("is_visual_active".toTooltipKey(), "カスタムスキンの状態:")
+            translationBuilder.add("positive".toAbilitySignKey(), "[+]")
+            translationBuilder.add("neutral".toAbilitySignKey(), "[=]")
+            translationBuilder.add("negative".toAbilitySignKey(), "[-]")
+            translationBuilder.add("keys".toCategoryKey(), "Animorphsのキー設定")
+            translationBuilder.add("beefly".toKeyBindKey(), "蜂飛行の能力")
+            translationBuilder.add("magma_jump".toKeyBindKey(), "マグマキューブの能力")
         }
     }
 
