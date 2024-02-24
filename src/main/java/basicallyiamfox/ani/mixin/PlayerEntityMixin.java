@@ -6,6 +6,9 @@ import basicallyiamfox.ani.util.StatModifier;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.data.DataTracker;
+import net.minecraft.entity.data.TrackedData;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.RegistryKeys;
@@ -32,14 +35,27 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     private Map<Identifier, StatModifier> damageTypeModifiers = new HashMap<>();
     @Unique
     @Nullable
-    private ItemStack transformationItem;
+    private static TrackedData<ItemStack> animorphs$transformationItem;
+
     @Unique
-    @Nullable
-    private Identifier activeTransformation;
+    private static TrackedData<String> animorphs$activeTransformation;
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
     }
+
+    @Inject(method = "<clinit>", at = @At(value = "RETURN"))
+    private static void registerTrackedData(CallbackInfo ci) {
+        animorphs$transformationItem = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.ITEM_STACK);
+        animorphs$activeTransformation = DataTracker.registerData(PlayerEntity.class, TrackedDataHandlerRegistry.STRING);
+    }
+
+    @Inject(method = "initDataTracker", at = @At(value = "RETURN"))
+    private void initTrackedData(CallbackInfo ci) {
+        dataTracker.startTracking(animorphs$transformationItem, ItemStack.EMPTY);
+        dataTracker.startTracking(animorphs$activeTransformation, "");
+    }
+
 
     @Inject(method = "tickMovement", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/player/PlayerInventory;updateItems()V"))
     private void animorphs$clearTransformations(CallbackInfo ci) {
@@ -96,23 +112,30 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
     @Nullable
     @Override
     public ItemStack getTransformationItem() {
-        return transformationItem;
+        return dataTracker.get(animorphs$transformationItem);
     }
     @Unique
     @Override
     public void setTransformationItem(@Nullable ItemStack transformationItem) {
-        this.transformationItem = transformationItem;
+        ItemStack itemStack = transformationItem != null ? transformationItem : ItemStack.EMPTY;
+        dataTracker.set(animorphs$transformationItem, itemStack);
     }
 
     @Unique
     @Nullable
     @Override
     public Identifier getActiveTransformation() {
-        return activeTransformation;
+        String rawId = dataTracker.get(animorphs$activeTransformation);
+        if (rawId.isBlank()) {
+            return null;
+        } else {
+            return new Identifier(rawId);
+        }
     }
     @Unique
     @Override
     public void setActiveTransformation(@Nullable Identifier activeTransformation) {
-        this.activeTransformation = activeTransformation;
+        var rawId = activeTransformation == null ? "" : activeTransformation.toString();
+        dataTracker.set(animorphs$activeTransformation, rawId);
     }
 }
