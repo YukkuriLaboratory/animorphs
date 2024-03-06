@@ -49,12 +49,18 @@ public abstract class ItemStackMixin {
             if (trans == null) return;
 
             if (nbt == null || nbt.isEmpty() || !nbt.contains(TransformationItem.VISUAL_ACTIVE_KEY)) {
-                getOrCreateNbt().putBoolean(TransformationItem.VISUAL_ACTIVE_KEY, true);
+                getOrCreateNbt().putBoolean(TransformationItem.VISUAL_ACTIVE_KEY, false);
             }
 
             var duck = (IPlayerEntity)entity;
-            duck.setActiveTransformation(trans.getId());
-            duck.setTransformationItem((ItemStack)(Object)this);
+            var isEnabled = getOrCreateNbt().getBoolean(TransformationItem.VISUAL_ACTIVE_KEY);
+            if (isEnabled) {
+                duck.setActiveTransformation(trans.getId());
+                duck.setTransformationItem((ItemStack)(Object)this);
+            } else {
+                duck.setActiveTransformation(null);
+                duck.setTransformationItem(null);
+            }
         }
     }
 }
