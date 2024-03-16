@@ -52,7 +52,7 @@ object TooltipCache {
             val list = arrayListOf<Text>()
             for (a in transformation.abilities) {
                 var text = Text.literal("* ").setStyle(emptyWhite)
-                val ability = clientAbilityManager.get(a)
+                val ability = clientAbilityManager?.get(a)
                 if (ability == null) {
                     list.add(text.append(Text.literal("Unable to load ability: ").append(Text.translatable(a.toTranslationKey()))))
                     continue
