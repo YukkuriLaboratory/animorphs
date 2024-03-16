@@ -2,8 +2,6 @@ package basicallyiamfox.ani.mixin.client;
 
 import basicallyiamfox.ani.cache.item.TooltipCache;
 import basicallyiamfox.ani.extensions.ExtensionsKt;
-import basicallyiamfox.ani.extensions._LivingEntityKt;
-import basicallyiamfox.ani.interfaces.IPlayerEntity;
 import basicallyiamfox.ani.item.TransformationItem;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
@@ -12,7 +10,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -21,16 +18,12 @@ import net.minecraft.registry.Registries;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
@@ -42,12 +35,14 @@ public abstract class ItemStackMixin {
 
     @Shadow private @Nullable NbtCompound nbt;
 
-    @Shadow public abstract NbtCompound getOrCreateNbt();
-
     @Inject(method = "getName", at = @At(value = "RETURN"))
     private void animorphs$changeNameColor(CallbackInfoReturnable<Text> cir) {
-        if (ExtensionsKt.getClientTransformationManager().getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
-            var color = ExtensionsKt.getClientTransformationManager().get(getItem()).getColor();
+        var clientTransformationManager = ExtensionsKt.getClientTransformationManager();
+        if (clientTransformationManager == null) {
+            return;
+        }
+        if (clientTransformationManager.getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
+            var color = clientTransformationManager.get(getItem()).getColor();
             if (color == null) {
                 return;
             }
