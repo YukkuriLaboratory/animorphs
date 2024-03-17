@@ -44,7 +44,11 @@ public abstract class AbstractClientPlayerEntityMixin extends PlayerEntity {
             return;
         }
 
-        var transformation = ExtensionsKt.getClientTransformationManager().get(duck.getActiveTransformation());
+        var clientTransformationManager = ExtensionsKt.getClientTransformationManager();
+        if (clientTransformationManager == null) {
+            return;
+        }
+        var transformation = clientTransformationManager.get(duck.getActiveTransformation());
         if (transformation == null || !transformation.isActive(clientWorld, this))
             return;
 
