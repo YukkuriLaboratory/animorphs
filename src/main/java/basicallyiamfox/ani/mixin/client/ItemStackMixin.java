@@ -52,8 +52,12 @@ public abstract class ItemStackMixin {
 
     @Inject(method = "toHoverableText", at = @At(value = "RETURN"))
     private void animorphs$changeHoverNameColor(CallbackInfoReturnable<Text> cir) {
-        if (ExtensionsKt.getClientTransformationManager().getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
-            var color = ExtensionsKt.getClientTransformationManager().get(getItem()).getColor();
+        var clientTransformationManager = ExtensionsKt.getClientTransformationManager();
+        if (clientTransformationManager == null) {
+            return;
+        }
+        if (clientTransformationManager.getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
+            var color = clientTransformationManager.get(getItem()).getColor();
             if (color == null) {
                 return;
             }
@@ -63,8 +67,12 @@ public abstract class ItemStackMixin {
 
     @ModifyVariable(method = "getTooltip", at = @At(value = "STORE", ordinal = 0))
     private MutableText animorphs$changeNameColor2(MutableText orig) {
-        if (ExtensionsKt.getClientTransformationManager().getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
-            var color = ExtensionsKt.getClientTransformationManager().get(getItem()).getColor();
+        var clientTransformationManager = ExtensionsKt.getClientTransformationManager();
+        if (clientTransformationManager == null) {
+            return orig;
+        }
+        if (clientTransformationManager.getTypeByItemId().containsKey(Registries.ITEM.getId(getItem()))) {
+            var color = clientTransformationManager.get(getItem()).getColor();
             if (color == null) {
                 return orig;
             }
@@ -86,12 +94,16 @@ public abstract class ItemStackMixin {
                                        CallbackInfoReturnable<List<Text>> cir,
                                        @Share("animorphs$list") LocalRef<List<Text>> listRef,
                                        @Share("animorphs$transformItem") LocalBooleanRef transformItemRef) {
-        transformItemRef.set(player != null && ExtensionsKt.getClientTransformationManager().getTypeByItemId().containsKey(Registries.ITEM.getId(getItem())));
+        var clientTransformationManager = ExtensionsKt.getClientTransformationManager();
+        if (clientTransformationManager == null) {
+            return;
+        }
+        transformItemRef.set(player != null && clientTransformationManager.getTypeByItemId().containsKey(Registries.ITEM.getId(getItem())));
         if (!transformItemRef.get()) {
             return;
         }
 
-        var transformation = ExtensionsKt.getClientTransformationManager().get(getItem());
+        var transformation = clientTransformationManager.get(getItem());
 
         var descList = TooltipCache.loadDescForItem(getItem(), transformation);
         if (descList.size() > 0) {
